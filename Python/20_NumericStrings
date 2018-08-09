@@ -1,0 +1,49 @@
+#正则表达式也能做
+# -*- coding:utf-8 -*-
+class Solution:
+    # s字符串
+    def isNumeric(self, s):
+        # write code here
+        if not s or len(s) <= 0:
+            #print("not s")
+            return False
+        if ('e' in s) or ('E' in s):
+            #print("******")
+            if 'e' in s:
+                index = s.index('e')
+            elif 'E' in s:
+                index = s.index('E')
+            front = s[:index]
+            behind = s[index + 1:]
+            if '.' in behind or len(behind) == 0:
+                #print("In behind or behind = 0")
+                return False
+            isfront = self.Digit(front)
+            isbehind = self.Digit(behind)
+            #print(isfront, isbehind)
+            return isfront and isbehind
+        else:
+            isNum = self.Digit(s)
+            return isNum
+        
+    def Digit(self, s):
+        dotCount = 0
+        allowNum = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '.', 'e', 'E']
+        for i in range(len(s)):
+            if s[i] not in allowNum:
+                #print("notallowNum")
+                return False
+            if s[i] == '.':
+                dotCount += 1
+            if s[i] in '+-' and i != 0:
+                #print("+-notallow")
+                return False
+        if dotCount > 1:
+            #print("dotCountflow")
+            return False
+        return True
+    
+if __name__ == "__main__":
+    n = raw_input()
+    solu = Solution()
+    print(solu.isNumeric(n))
