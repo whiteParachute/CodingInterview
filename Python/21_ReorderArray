@@ -1,0 +1,34 @@
+#和书上描述一致但是过不了nowcoder（没排序）
+# -*- coding:utf-8 -*-
+class Solution:
+    def reOrderArray(self, array):
+        # write code here
+        if not array:
+            return 
+        aBegin = 0
+        aEnd = len(array) - 1
+        
+        while aBegin < aEnd:
+            while aBegin < aEnd and array[aBegin] & 1 != 0:
+                aBegin += 1
+            while aBegin < aEnd and array[aEnd] & 1 == 0:
+                aEnd -= 1
+            
+            if aBegin < aEnd:
+                array[aBegin], array[aEnd] = array[aEnd], array[aBegin]
+        return array
+
+#nowcoder ac
+# -*- coding:utf-8 -*-
+class Solution:
+    def reOrderArray(self, array):
+        # write code here
+
+        res1 = []
+        res2 = []
+        for i in array:
+            if i % 2 == 0:
+                res1.append(i)
+            else:
+                res2.append(i)
+        return res2 + res1
